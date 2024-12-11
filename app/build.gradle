@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -44,6 +44,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     implementation 'com.github.lisawray.groupie:groupie:2.9.0'
+
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha01'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
