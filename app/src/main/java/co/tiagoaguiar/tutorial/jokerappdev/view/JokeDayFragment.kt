@@ -1,8 +1,6 @@
 package co.tiagoaguiar.tutorial.jokerappdev.view
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,30 +8,26 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import co.tiagoaguiar.tutorial.jokerappdev.R
 import co.tiagoaguiar.tutorial.jokerappdev.modeel.Joke
+import co.tiagoaguiar.tutorial.jokerappdev.presentation.JokeDayPresenter
 import co.tiagoaguiar.tutorial.jokerappdev.presentation.JokePresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 
-class JokeFragment : Fragment() {
-
-    companion object {
-        const val CATEGORY_KEY = "category"
-    }
+class JokeDayFragment : Fragment() {
 
     private lateinit var progressBar : ProgressBar
     private lateinit var textView: TextView
     private lateinit var imageView: ImageView
 
-    private lateinit var presenter: JokePresenter
+    private lateinit var presenter: JokeDayPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = JokePresenter(this)
+        presenter = JokeDayPresenter(this)
     }
 
     override fun onCreateView(
@@ -41,23 +35,18 @@ class JokeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_joke,container, false)
+        return inflater.inflate(R.layout.fragment_joke_day,container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val categoryName = arguments?.getString(CATEGORY_KEY)!!
 
-        activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.title = categoryName
+        activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.title = getString(R.string.menu_joke_day)
         progressBar = view.findViewById(R.id.progress_bar)
         textView = view.findViewById(R.id.txt_joke)
         imageView = view.findViewById(R.id.img_joke)
 
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-            presenter.findBy(categoryName)
-        }
-
-        presenter.findBy(categoryName)
+        presenter.findRandom()
     }
 
     fun showJoke(joke: Joke) {
